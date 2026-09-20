@@ -28,7 +28,41 @@ if ($IsccCandidates.Count -eq 0) {
 }
 
 $Iscc = $IsccCandidates | Select-Object -First 1
-& $Iscc (Join-Path $ProjectRoot 'installer\SourceCodeViewer.iss')
+$BundleJar = Get-ChildItem -LiteralPath (Join-Path $ProjectRoot 'bundles\io.github.sebastian.dbeaver.sourceviewer\target') -Filter 'io.github.sebastian.dbeaver.sourceviewer-*.jar' |
+    Select-Object -First 1
+if ($null -eq $BundleJar) {
+    throw 'The built source-code viewer bundle JAR was not found.'
+}
+
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$Archive = [System.IO.Compression.ZipFile]::OpenRead($BundleJar.FullName)
+try {
+    $ManifestEntry = $Archive.GetEntry('META-INF/MANIFEST.MF')
+    if ($null -eq $ManifestEntry) {
+        throw 'The built source-code viewer bundle has no OSGi manifest.'
+    }
+    $Reader = [System.IO.StreamReader]::new($ManifestEntry.Open())
+    try {
+        $Manifest = $Reader.ReadToEnd()
+    }
+    finally {
+        $Reader.Dispose()
+    }
+}
+finally {
+    $Archive.Dispose()
+}
+
+$VersionMatch = [regex]::Match($Manifest, '(?m)^Bundle-Version:\s*([^\r\n]+)')
+if (-not $VersionMatch.Success) {
+    throw 'The built source-code viewer bundle has no Bundle-Version manifest entry.'
+}
+$BundleVersion = $VersionMatch.Groups[1].Value.Trim()
+$StagingDirectory = Join-Path $ProjectRoot 'bundles\io.github.sebastian.dbeaver.sourceviewer\target\installer-staging'
+New-Item -ItemType Directory -Path $StagingDirectory -Force | Out-Null
+$StagedBundle = Join-Path $StagingDirectory "io.github.sebastian.dbeaver.sourceviewer_$BundleVersion.jar"
+Copy-Item -LiteralPath $BundleJar.FullName -Destination $StagedBundle -Force
+& $Iscc "/DBundleVersion=$BundleVersion" (Join-Path $ProjectRoot 'installer\SourceCodeViewer.iss')
 if ($LASTEXITCODE -ne 0) {
     throw 'Inno Setup compilation failed.'
 }

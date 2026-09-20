@@ -1,8 +1,11 @@
 ; Builds an installer which adds this extension to an existing DBeaver installation.
-; Run scripts\Build-Installer.ps1 after Maven has produced the P2 update site.
+; It registers the standalone bundle in Eclipse's simple configurator because this DBeaver build does not activate drop-ins.
 
 #define ExtensionName "DBeaver Source Code Viewer"
-#define ExtensionVersion "0.1.3"
+#define ExtensionVersion "0.1.5"
+#ifndef BundleVersion
+  #define BundleVersion "0.0.0"
+#endif
 
 [Setup]
 AppId={{4A8B6DBD-5507-4EBB-AFD4-B5400D2D78F0}
@@ -22,9 +25,10 @@ UninstallDisplayName={#ExtensionName}
 
 [InstallDelete]
 Type: filesandordirs; Name: {app}\dropins\source-code-viewer
+Type: files; Name: {app}\plugins\io.github.sebastian.dbeaver.sourceviewer_*.jar
 
 [Files]
-Source: "..\repository\target\repository\*"; DestDir: "{tmp}\dbeaver-source-code-viewer-p2"; Flags: recursesubdirs createallsubdirs deleteafterinstall ignoreversion
+Source: "..\bundles\io.github.sebastian.dbeaver.sourceviewer\target\installer-staging\io.github.sebastian.dbeaver.sourceviewer_{#BundleVersion}.jar"; DestDir: "{app}\plugins"; Flags: ignoreversion
 Source: "..\bundles\io.github.sebastian.dbeaver.sourceviewer\languages\*.xml"; DestDir: "{app}\source-code-viewer\languages"; Flags: ignoreversion
 
 [Code]
@@ -41,30 +45,56 @@ begin
   end;
 end;
 
-function InstallExtensionWithP2(): Boolean;
+function RegisterBundle(): Boolean;
 var
-  ExitCode: Integer;
-  RepositoryPath: String;
-  RepositoryUri: String;
-  Parameters: String;
+  RegistryFile: String;
+  PluginDirectory: String;
+  PluginFileName: String;
+  BundleVersion: String;
+  NewEntry: String;
+  ExistingLines: TArrayOfString;
+  NewLines: TArrayOfString;
+  FindRec: TFindRec;
+  I: Integer;
+  Count: Integer;
 begin
-  RepositoryPath := ExpandConstant('{tmp}\dbeaver-source-code-viewer-p2');
-  StringChangeEx(RepositoryPath, '\', '/', True);
-  RepositoryUri := 'file:/' + RepositoryPath;
-  Parameters := '-application org.eclipse.equinox.p2.director -repository "' + RepositoryUri +
-    '" -installIU io.github.sebastian.dbeaver.sourceviewer.feature.feature.group -profile DefaultProfile';
-  Result := Exec(ExpandConstant('{app}\dbeaverc.exe'), Parameters, '', SW_HIDE, ewWaitUntilTerminated, ExitCode);
-  if not Result or (ExitCode <> 0) then
+  Result := False;
+  RegistryFile := ExpandConstant('{app}\configuration\org.eclipse.equinox.simpleconfigurator\bundles.info');
+  PluginDirectory := ExpandConstant('{app}\plugins');
+  if not LoadStringsFromFile(RegistryFile, ExistingLines) then
   begin
-    MsgBox('The extension could not be installed. Close every DBeaver window and run this installer again as Administrator.', mbError, MB_OK);
-    Result := False;
+    MsgBox('DBeaver bundle registry was not found: ' + RegistryFile, mbError, MB_OK);
+    exit;
   end;
+  if not FindFirst(AddBackslash(PluginDirectory) + 'io.github.sebastian.dbeaver.sourceviewer_*.jar', FindRec) then
+  begin
+    MsgBox('The source-code viewer plug-in JAR was not copied to DBeaver.', mbError, MB_OK);
+    exit;
+  end;
+  PluginFileName := FindRec.Name;
+  FindClose(FindRec);
+  BundleVersion := Copy(PluginFileName, Length('io.github.sebastian.dbeaver.sourceviewer_') + 1, Length(PluginFileName) - Length('io.github.sebastian.dbeaver.sourceviewer_') - Length('.jar'));
+  NewEntry := 'io.github.sebastian.dbeaver.sourceviewer,' + BundleVersion + ',plugins/' + PluginFileName + ',4,false';
+  SetArrayLength(NewLines, Length(ExistingLines) + 1);
+  Count := 0;
+  for I := 0 to GetArrayLength(ExistingLines) - 1 do
+  begin
+    if Pos('io.github.sebastian.dbeaver.sourceviewer,', ExistingLines[I]) <> 1 then
+    begin
+      NewLines[Count] := ExistingLines[I];
+      Count := Count + 1;
+    end;
+  end;
+  NewLines[Count] := NewEntry;
+  Count := Count + 1;
+  SetArrayLength(NewLines, Count);
+  Result := SaveStringsToFile(RegistryFile, NewLines, False);
+  if not Result then
+    MsgBox('DBeaver bundle registry could not be updated.', mbError, MB_OK);
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
-  if (CurStep = ssPostInstall) and not InstallExtensionWithP2() then
-  begin
-    RaiseException('DBeaver P2 installation failed.');
-  end;
+  if (CurStep = ssPostInstall) and not RegisterBundle() then
+    RaiseException('DBeaver bundle registration failed.');
 end;
