@@ -45,7 +45,7 @@ This project was compiled against the locally installed **DBeaver Community 26.2
 
 The installer build creates:
 
-- `repository/target/repository/` �w^~)�t P2 update site
+- `repository/target/repository/` - a P2 update site
 - `dist/installer/DBeaver-Source-Code-Viewer-0.1.6-Setup.exe` - Windows installer
 
 The project uses the installed DBeaver plug-in directory as its Tycho target platform. If DBeaver is installed elsewhere or is upgraded, update the target files first:
