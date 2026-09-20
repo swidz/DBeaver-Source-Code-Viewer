@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NotepadPlus>
+    <UserLang name="SQL" ext="sql" udlVersion="2.1">
+        <Settings><Global caseIgnored="yes" allowFoldOfComments="yes" forcePureLC="0" decimalSeparator="0" /><Prefix Keywords1="yes" Keywords2="yes" Keywords3="no" Keywords4="no" Keywords5="no" Keywords6="no" Keywords7="no" Keywords8="no" /></Settings>
+        <KeywordLists>
+            <Keywords name="Comments">00-- 01 02/* 03*/</Keywords>
+            <Keywords name="Numbers, prefix1"></Keywords>
+            <Keywords name="Keywords1">all alter analyze and any as asc between by case cast check column constraint create cross current_date current_time current_timestamp database default delete desc distinct drop else end exists false fetch for foreign from full grant group having in index inner insert intersect into is join key left like limit not null of offset on or order outer primary references right select set some table then true union unique update using values view when where with</Keywords>
+            <Keywords name="Keywords2">bigint boolean char date decimal integer numeric real smallint text time timestamp uuid varchar json jsonb array coalesce count avg min max sum now current_user</Keywords>
+            <Keywords name="Delimiters1">00' 01'' 02' 03' 04'</Keywords>
+            <Keywords name="Delimiters2">00&quot; 01&quot;&quot; 02&quot; 03&quot; 04&quot;</Keywords>
+            <Keywords name="Operators1">+ - * / % = == != &lt;&gt; &lt; &gt; &lt;= &gt;= || :: . , ; ( ) [ ]</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" fgColor="D4D4D4" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="COMMENTS" fgColor="6A9955" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="NUMBER" fgColor="B5CEA8" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="KEYWORD1" fgColor="569CD6" bgColor="1E1E1E" fontStyle="1" />
+            <WordsStyle name="KEYWORD2" fgColor="4EC9B0" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="DELIMITER1" fgColor="CE9178" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="DELIMITER2" fgColor="CE9178" bgColor="1E1E1E" fontStyle="0" />
+        </Styles>
+    </UserLang>
+</NotepadPlus>

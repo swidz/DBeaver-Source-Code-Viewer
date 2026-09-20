@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+    <extension point="org.jkiss.dbeaver.dataManager">
+        <streamManager
+            id="source-code"
+            label="%stream.manager.source.label"
+            description="%stream.manager.source.description"
+            primaryMime="text/x-source-code"
+            supportedMime="text/plain"
+            class="io.github.sebastian.dbeaver.sourceviewer.ui.SourceCodeStreamValueManager"/>
+    </extension>
+
+    <extension point="org.jkiss.dbeaver.resultset.panel">
+        <panel
+            id="source-code"
+            label="%panel.source.label"
+            description="%panel.source.description"
+            class="io.github.sebastian.dbeaver.sourceviewer.ui.SourceCodeResultPanel"
+            default="false">
+            <supports type="columns"/>
+        </panel>
+    </extension>
+</plugin>

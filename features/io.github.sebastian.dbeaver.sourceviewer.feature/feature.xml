@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="io.github.sebastian.dbeaver.sourceviewer.feature"
+      label="DBeaver Source Code Viewer"
+      version="0.1.0.qualifier"
+      provider-name="Sebastian">
+
+   <description url="https://github.com/">
+      Syntax-highlighted source-code result values for DBeaver.
+   </description>
+
+   <plugin
+         id="io.github.sebastian.dbeaver.sourceviewer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+</feature>

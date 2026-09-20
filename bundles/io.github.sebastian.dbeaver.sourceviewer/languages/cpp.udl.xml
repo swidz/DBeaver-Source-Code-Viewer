@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NotepadPlus>
+    <UserLang name="C++" ext="cpp cxx cc h hpp" udlVersion="2.1">
+        <Settings><Global caseIgnored="no" allowFoldOfComments="yes" forcePureLC="0" decimalSeparator="0" /><Prefix Keywords1="yes" Keywords2="yes" Keywords3="yes" Keywords4="no" Keywords5="no" Keywords6="no" Keywords7="no" Keywords8="no" /></Settings>
+        <KeywordLists>
+            <Keywords name="Comments">00// 01 02/* 03*/</Keywords>
+            <Keywords name="Numbers, prefix1"></Keywords>
+            <Keywords name="Keywords1">alignas alignof and and_eq asm auto bitand bitor bool break case catch char char8_t char16_t char32_t class compl concept const consteval constexpr constinit const_cast continue co_await co_return co_yield decltype default delete do double dynamic_cast else enum explicit export extern false float for friend goto if inline int long mutable namespace new noexcept not not_eq nullptr operator or or_eq private protected public register reinterpret_cast requires return short signed sizeof static static_assert static_cast struct switch template this thread_local throw true try typedef typeid typename union unsigned using virtual void volatile wchar_t while xor xor_eq</Keywords>
+            <Keywords name="Keywords2">std string vector map set unordered_map unique_ptr shared_ptr make_unique make_shared cout cin endl</Keywords>
+            <Keywords name="Keywords3">include define pragma ifdef ifndef endif</Keywords>
+            <Keywords name="Delimiters1">00&quot; 01\ 02&quot; 03&quot; 04&quot;</Keywords>
+            <Keywords name="Delimiters2">00' 01\ 02' 03' 04'</Keywords>
+            <Keywords name="Operators1">+ - * / % = == != &lt; &gt; &lt;= &gt;= &amp;&amp; || ! ? : . , ; ( ) [ ] { } -&gt; ::</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" fgColor="D4D4D4" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="COMMENTS" fgColor="6A9955" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="NUMBER" fgColor="B5CEA8" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="KEYWORD1" fgColor="569CD6" bgColor="1E1E1E" fontStyle="1" />
+            <WordsStyle name="KEYWORD2" fgColor="4EC9B0" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="KEYWORD3" fgColor="C586C0" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="DELIMITER1" fgColor="CE9178" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="DELIMITER2" fgColor="CE9178" bgColor="1E1E1E" fontStyle="0" />
+        </Styles>
+    </UserLang>
+</NotepadPlus>

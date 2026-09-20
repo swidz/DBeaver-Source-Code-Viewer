@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NotepadPlus>
+    <UserLang name="C#" ext="cs" udlVersion="2.1">
+        <Settings><Global caseIgnored="no" allowFoldOfComments="yes" forcePureLC="0" decimalSeparator="0" /><Prefix Keywords1="yes" Keywords2="yes" Keywords3="yes" Keywords4="no" Keywords5="no" Keywords6="no" Keywords7="no" Keywords8="no" /></Settings>
+        <KeywordLists>
+            <Keywords name="Comments">00// 01 02/* 03*/</Keywords>
+            <Keywords name="Numbers, prefix1"></Keywords>
+            <Keywords name="Keywords1">abstract as base bool break byte case catch char checked class const continue decimal default delegate do double else enum event explicit extern false finally fixed float for foreach goto if implicit in int interface internal is lock long namespace new null object operator out override params private protected public readonly ref return sbyte sealed short sizeof stackalloc static string struct switch this throw true try typeof uint ulong unchecked unsafe ushort using virtual void volatile while</Keywords>
+            <Keywords name="Keywords2">async await get init set value var dynamic nameof record required file global partial yield</Keywords>
+            <Keywords name="Keywords3">Console DateTime Exception Guid IEnumerable IQueryable List Task ValueTask</Keywords>
+            <Keywords name="Delimiters1">00&quot; 01\ 02&quot; 03&quot; 04&quot;</Keywords>
+            <Keywords name="Delimiters2">00' 01\ 02' 03' 04'</Keywords>
+            <Keywords name="Operators1">+ - * / % = == != &lt; &gt; &lt;= &gt;= &amp;&amp; || ! ? : . , ; ( ) [ ] { } =&gt; ??</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" fgColor="D4D4D4" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="COMMENTS" fgColor="6A9955" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="NUMBER" fgColor="B5CEA8" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="KEYWORD1" fgColor="569CD6" bgColor="1E1E1E" fontStyle="1" />
+            <WordsStyle name="KEYWORD2" fgColor="C586C0" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="KEYWORD3" fgColor="4EC9B0" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="DELIMITER1" fgColor="CE9178" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="DELIMITER2" fgColor="CE9178" bgColor="1E1E1E" fontStyle="0" />
+        </Styles>
+    </UserLang>
+</NotepadPlus>

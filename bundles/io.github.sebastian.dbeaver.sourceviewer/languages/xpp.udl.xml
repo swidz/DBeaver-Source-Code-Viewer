@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NotepadPlus>
+    <UserLang name="X++" ext="xpp" udlVersion="2.1">
+        <Settings>
+            <Global caseIgnored="no" allowFoldOfComments="yes" forcePureLC="0" decimalSeparator="0" />
+            <Prefix Keywords1="yes" Keywords2="yes" Keywords3="yes" Keywords4="no" Keywords5="no" Keywords6="no" Keywords7="no" Keywords8="no" />
+        </Settings>
+        <KeywordLists>
+            <Keywords name="Comments">00// 01 02/* 03*/</Keywords>
+            <Keywords name="Numbers, prefix1"></Keywords>
+            <Keywords name="Keywords1">abstract anytype break case catch changecompany class client container continue crosscompany date delegate delete desc display edit else enum event final firstonly for foreach from group having if implements insert instanceOf int join like maxof minof new next nofetch notexists null outer private protected public real repeatable return select static str super switch table this throw try ttsabort ttsbegin ttscommit update validTimeState void where while window</Keywords>
+            <Keywords name="Keywords2">Args Array AsyncResult BinDataClass ClassId Common ConfigurationKeyId DateTime DictClass DictEnum DictField DictMethod DictTable EnumId Exception FileIo FileIoPermission FormBuildControl FormDataSource FormRun Guid HttpRequest HttpResponse IdentifierName Int64 List Map MenuFunction Object Query QueryBuildDataSource QueryBuildRange RecordInsertList RecordSortedList RunBase Set SqlStatement Statement TableId TimeOfDay TypeId UserConnection UtilElements ViewBuild</Keywords>
+            <Keywords name="Keywords3">boolean date enum guid int int64 real str time utcDateTime var</Keywords>
+            <Keywords name="Keywords4"></Keywords>
+            <Keywords name="Keywords5"></Keywords>
+            <Keywords name="Keywords6"></Keywords>
+            <Keywords name="Keywords7"></Keywords>
+            <Keywords name="Keywords8"></Keywords>
+            <Keywords name="Delimiters1">00&quot; 01\ 02&quot; 03&quot; 04&quot;</Keywords>
+            <Keywords name="Delimiters2">00' 01\ 02' 03' 04'</Keywords>
+            <Keywords name="Delimiters3"></Keywords>
+            <Keywords name="Delimiters4"></Keywords>
+            <Keywords name="Delimiters5"></Keywords>
+            <Keywords name="Delimiters6"></Keywords>
+            <Keywords name="Delimiters7"></Keywords>
+            <Keywords name="Delimiters8"></Keywords>
+            <Keywords name="Operators1">+ - * / % = == != &lt; &gt; &lt;= &gt;= &amp;&amp; || ! ? : . , ; ( ) [ ] { }</Keywords>
+            <Keywords name="Folders in code1, open">{</Keywords>
+            <Keywords name="Folders in code1, middle"></Keywords>
+            <Keywords name="Folders in code1, close">}</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" fgColor="D4D4D4" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="COMMENTS" fgColor="6A9955" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="NUMBER" fgColor="B5CEA8" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="KEYWORD1" fgColor="569CD6" bgColor="1E1E1E" fontStyle="1" />
+            <WordsStyle name="KEYWORD2" fgColor="4EC9B0" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="KEYWORD3" fgColor="C586C0" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="DELIMITER1" fgColor="CE9178" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="DELIMITER2" fgColor="CE9178" bgColor="1E1E1E" fontStyle="0" />
+            <WordsStyle name="OPERATORS" fgColor="D4D4D4" bgColor="1E1E1E" fontStyle="0" />
+        </Styles>
+    </UserLang>
+</NotepadPlus>

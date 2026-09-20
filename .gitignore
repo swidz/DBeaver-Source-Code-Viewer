@@ -1,0 +1,13 @@
+.metadata/
+.idea/
+.project
+.classpath
+target/
+work/
+dist/
+*.log
+*.jar
+*.zip
+*.exe
+*.msi
+*.bak
