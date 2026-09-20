@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.sebastian</groupId>
         <artifactId>dbeaver-source-code-viewer</artifactId>
-        <version>0.1.1-SNAPSHOT</version>
+        <version>0.1.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>io.github.sebastian.dbeaver.sourceviewer.repository</artifactId>
