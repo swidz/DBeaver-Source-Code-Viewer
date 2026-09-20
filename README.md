@@ -6,8 +6,8 @@ An Eclipse/DBeaver extension that colors source-code values returned by the SQL 
 
 - **Source Code** in DBeaver's existing Value-panel format selector for text LOB values.
 - A **Source Code** Query Result panel for ordinary PostgreSQL `text` and `varchar` cells, which DBeaver does not route through the LOB value viewer.
-- A language picker and syntax coloring for X++, C#, C++, and SQL.
-- Configuration-only language additions: copy Notepad++ User Defined Language (UDL) XML files to DBeaver's installation folder, then choose **Reload languages**.
+- Currently included language definitions: **C#**, **C++**, **SQL**, and **X++** (the Microsoft Dynamics 365 Finance development language).
+- Other language definitions can be downloaded from the [Notepad++ User Defined Languages Collection](https://github.com/notepad-plus-plus/userDefinedLanguages). Copy a UDL XML file to DBeaver's installation folder, then choose **Reload languages**.
 
 The parser reads standard Notepad++ UDL XML and applies its extensions, keyword groups, line/block comments, string delimiters, operators, and foreground colors. Advanced Notepad++ lexer behaviour is intentionally outside this small lexical renderer.
 
@@ -22,7 +22,7 @@ DBeaver does not offer a public hook that replaces the renderer of its standard 
 
 ## Add a language without development
 
-Copy a Notepad++ UDL XML file to:
+Download the required UDL XML file from the [Notepad++ User Defined Languages Collection](https://github.com/notepad-plus-plus/userDefinedLanguages), then copy it to:
 
 `<DBeaver installation>\source-code-viewer\languages\`
 
@@ -55,6 +55,10 @@ The project uses the installed DBeaver plug-in directory as its Tycho target pla
 ```
 
 The target is deliberately local: DBeaver's public update site distributes installable features but not all internal bundles needed to compile an extension against its APIs.
+
+## License
+
+This project is released under the [MIT License](LICENSE).
 
 ## Development tools
 

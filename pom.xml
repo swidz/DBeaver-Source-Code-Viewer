@@ -7,7 +7,17 @@
     <groupId>io.github.sebastian</groupId>
     <artifactId>dbeaver-source-code-viewer</artifactId>
     <version>0.1.6-SNAPSHOT</version>
-    <packaging>pom</packaging>
+<packaging>pom</packaging>
+    <name>DBeaver Source Code Viewer</name>
+    <description>Syntax-highlighted source-code values in DBeaver query results using Notepad++ UDL definitions.</description>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
