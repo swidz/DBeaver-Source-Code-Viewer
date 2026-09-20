@@ -2,7 +2,7 @@
 <feature
       id="io.github.sebastian.dbeaver.sourceviewer.feature"
       label="DBeaver Source Code Viewer"
-      version="0.1.0.qualifier"
+      version="0.1.1.qualifier"
       provider-name="Sebastian">
 
    <description url="https://github.com/">

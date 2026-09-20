@@ -2,7 +2,7 @@
 ; Run scripts\Build-Installer.ps1 after Maven has produced the plug-in JAR.
 
 #define ExtensionName "DBeaver Source Code Viewer"
-#define ExtensionVersion "0.1.0"
+#define ExtensionVersion "0.1.1"
 
 [Setup]
 AppId={{4A8B6DBD-5507-4EBB-AFD4-B5400D2D78F0}
@@ -19,6 +19,9 @@ WizardStyle=modern
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 UninstallDisplayName={#ExtensionName}
+
+[InstallDelete]
+Type: files; Name: {app}\dropins\source-code-viewer\plugins\io.github.sebastian.dbeaver.sourceviewer-*.jar
 
 [Files]
 Source: "..\bundles\io.github.sebastian.dbeaver.sourceviewer\target\io.github.sebastian.dbeaver.sourceviewer-*.jar"; DestDir: "{app}\dropins\source-code-viewer\plugins"; Flags: ignoreversion
