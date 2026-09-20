@@ -10,7 +10,27 @@ $ProjectRoot = Split-Path -Parent $PSScriptRoot
 & (Join-Path $PSScriptRoot 'Set-DBeaverTarget.ps1') -DBeaverHome $DBeaverHome
 
 if (-not $SkipMaven) {
-    & mvn '-Dtycho.p2.httptransport.type=JavaUrl' -f (Join-Path $ProjectRoot 'pom.xml') clean package
+    $MavenCandidates = @()
+    $MavenCommand = Get-Command mvn.cmd -ErrorAction SilentlyContinue
+    if ($null -eq $MavenCommand) {
+        $MavenCommand = Get-Command mvn -ErrorAction SilentlyContinue
+    }
+    if ($null -ne $MavenCommand) {
+        $MavenCandidates += $MavenCommand.Source
+    }
+    if ($env:MAVEN_HOME) {
+        $MavenCandidates += Join-Path $env:MAVEN_HOME 'bin\mvn.cmd'
+    }
+    $ApachePrograms = Join-Path $env:LOCALAPPDATA 'Programs\Apache'
+    if (Test-Path -LiteralPath $ApachePrograms) {
+        $MavenCandidates += Get-ChildItem -LiteralPath $ApachePrograms -Directory -Filter 'apache-maven-*' |
+            ForEach-Object { Join-Path $_.FullName 'bin\mvn.cmd' }
+    }
+    $Maven = $MavenCandidates | Where-Object { $_ -and (Test-Path -LiteralPath $_) } | Select-Object -First 1
+    if ($null -eq $Maven) {
+        throw 'Apache Maven was not found. Install it or add mvn.cmd to PATH.'
+    }
+    & $Maven '-Dtycho.p2.httptransport.type=JavaUrl' -f (Join-Path $ProjectRoot 'pom.xml') clean package
     if ($LASTEXITCODE -ne 0) {
         throw 'Maven package failed.'
     }

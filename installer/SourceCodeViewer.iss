@@ -2,7 +2,7 @@
 ; It registers the standalone bundle in Eclipse's simple configurator because this DBeaver build does not activate drop-ins.
 
 #define ExtensionName "DBeaver Source Code Viewer"
-#define ExtensionVersion "0.1.5"
+#define ExtensionVersion "0.1.6"
 #ifndef BundleVersion
   #define BundleVersion "0.0.0"
 #endif

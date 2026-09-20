@@ -2,8 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: io.github.sebastian.dbeaver.sourceviewer;singleton:=true
-Bundle-Version: 0.1.5.qualifier
+Bundle-Version: 0.1.6.qualifier
 Bundle-Vendor: Sebastian
+Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: io.github.sebastian.dbeaver.sourceviewer.SourceViewerActivator
