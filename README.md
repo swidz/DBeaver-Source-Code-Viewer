@@ -6,7 +6,7 @@ An Eclipse/DBeaver extension that colors source-code values returned by the SQL 
 
 - **Source Code** in DBeaver's existing Value-panel format selector for text LOB values.
 - A **Source Code** Query Result panel for ordinary PostgreSQL `text` and `varchar` cells, which DBeaver does not route through the LOB value viewer.
-- Currently included language definitions: **C#**, **C++**, **SQL**, and **X++** (the Microsoft Dynamics 365 Finance development language).
+- Currently included language definitions: **C#**, **C++**, **SQL**, and **X++**.
 - Other language definitions can be downloaded from the [Notepad++ User Defined Languages Collection](https://github.com/notepad-plus-plus/userDefinedLanguages). Copy a UDL XML file to DBeaver's installation folder, then choose **Reload languages**.
 
 The parser reads standard Notepad++ UDL XML and applies its extensions, keyword groups, line/block comments, string delimiters, operators, and foreground colors. Advanced Notepad++ lexer behaviour is intentionally outside this small lexical renderer.
