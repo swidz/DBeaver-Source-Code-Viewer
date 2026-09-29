@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <repository name="DBeaver Source Code Viewer" type="org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository" version="1.0.0">
   <properties size="1">
-    <property name="p2.timestamp" value="1790688884457" />
+    <property name="p2.timestamp" value="1790711974163" />
   </properties>
-  <children size="1">
+  <children size="2">
     <child location="releases/0.1.7" />
+    <child location="releases/0.1.8" />
   </children>
 </repository>
