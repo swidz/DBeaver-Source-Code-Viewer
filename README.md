@@ -6,6 +6,7 @@ An Eclipse/DBeaver extension that colors source-code values returned by the SQL 
 
 - **Source Code** in DBeaver's existing Value-panel format selector for text LOB values.
 - A **Source Code** Query Result panel for ordinary PostgreSQL `text` and `varchar` cells.
+- **Selection occurrence highlighting**: selecting text lightly highlights all matching text in the displayed value, ignoring case and keeping syntax colors.
 - Currently included language definitions: **C#**, **C++**, **SQL**, and **X++**.
 - Other language definitions can be downloaded from the [Notepad++ User Defined Languages Collection](https://github.com/notepad-plus-plus/userDefinedLanguages). Add a UDL XML file, then choose **Reload languages**.
 
@@ -33,13 +34,13 @@ For DBeaver installed in a protected folder such as `C:\Program Files\DBeaver`, 
 
 ### Install from a ZIP
 
-Download `DBeaver-Source-Code-Viewer-0.1.7-p2.zip` from the [releases page](https://github.com/swidz/DBeaver-Source-Code-Viewer/releases/latest). In **Help > Install New Software... > Add... > Archive...**, select that ZIP, then follow steps 3-6 above. Do not select GitHub's automatically generated source-code ZIP. All DBeaver dependencies must already be installed.
+Download `DBeaver-Source-Code-Viewer-0.1.8-p2.zip` from the [releases page](https://github.com/swidz/DBeaver-Source-Code-Viewer/releases/latest). In **Help > Install New Software... > Add... > Archive...**, select that ZIP, then follow steps 3-6 above. Do not select GitHub's automatically generated source-code ZIP. All DBeaver dependencies must already be installed.
 
 ### Upgrade, migration, and removal
 
 The old 0.1.6 EXE copied a JAR and edited DBeaver's `bundles.info` directly. DBeaver could overwrite that file during an update, and the extension was not recorded as an installed feature. That installer is retired.
 
-If the extension disappeared after a DBeaver update, install 0.1.7 through the instructions above. If the old extension is still present, the newer version uses the same plug-in identity. After restarting, confirm **DBeaver Source Code Viewer** appears under **Help > About DBeaver > Installation Details > Installed Software**. Do not run the old EXE installer over a managed installation.
+If the extension disappeared after a DBeaver update, install 0.1.7 or later through the instructions above. If the old extension is still present, the newer version uses the same plug-in identity. After restarting, confirm **DBeaver Source Code Viewer** appears under **Help > About DBeaver > Installation Details > Installed Software**. Do not run the old EXE installer over a managed installation.
 
 The update site is registered for future extension updates. Use **Help > Check for Updates**, and use **Installation Details > Installed Software > Uninstall** to remove the feature.
 
@@ -51,6 +52,8 @@ P2 records the installed extension and manages compatible updates. It does **not
 2. Select a source-code cell, then choose **Panels > Source Code** in the query results.
 3. Select the required language in the panel's dropdown.
 4. For LOB/content values, the built-in Value panel also offers **Source Code**.
+
+Select text with the mouse or keyboard to lightly highlight its occurrences throughout the displayed value. Matching is literal and case-insensitive, including partial words, punctuation, and multiline selections. Syntax colors remain intact; the active selection keeps its normal appearance. Change or clear the selection to update or remove the highlights. Selecting a different result cell clears the old matches. No database content is changed by highlighting.
 
 DBeaver's standard string Value pane has no public hook for adding a format per column. This extension uses a Query Result panel for regular strings and the existing Value-pane format extension for content values.
 
@@ -84,19 +87,20 @@ Bundled examples are in `bundles/io.github.sebastian.dbeaver.sourceviewer/langua
 
 ## Build and publish
 
-Version 0.1.7 is built against **DBeaver Community 26.2.1**, with Java 21 and Maven 3.9.16. Inno Setup is no longer required.
+Version 0.1.8 is built against **DBeaver Community 26.2.1**, with Java 21 and Maven 3.9.16. Inno Setup is no longer required.
 
 ```powershell
 .\scripts\Test-UdlParser.ps1
 .\scripts\Build-UpdateSite.ps1 -DBeaverHome 'C:\Program Files\DBeaver'
+.\scripts\Test-SourceCodeTextView.ps1 -DBeaverHome 'C:\Program Files\DBeaver'
 ```
 
 The build produces:
 
 - `repository/target/repository/` - the P2 repository (feature, plug-in, and metadata).
-- `dist/DBeaver-Source-Code-Viewer-0.1.7-p2.zip` - an archive for DBeaver's **Install New Software** dialog.
+- `dist/DBeaver-Source-Code-Viewer-0.1.8-p2.zip` - an archive for DBeaver's **Install New Software** dialog.
 
-`Build-UpdateSite.ps1` updates the local Tycho target, runs Maven, checks artifact checksums and installation metadata, and copies the archive. `Build-Installer.ps1` remains as a deprecated alias for the new build; it no longer produces an EXE.
+`Build-UpdateSite.ps1` runs the syntax and selection-matching regression tests, updates the local Tycho target, runs Maven, checks artifact checksums and installation metadata, and copies the archive. `Test-SourceCodeTextView.ps1` tests the shared viewer in a hidden Windows SWT shell using the installed DBeaver libraries; it does not open your database workspace. `Build-Installer.ps1` remains as a deprecated alias for the new build; it no longer produces an EXE.
 
 Maintainers can publish the built repository with:
 

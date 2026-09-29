@@ -9,6 +9,7 @@ import io.github.sebastian.dbeaver.sourceviewer.SourceViewerMessages;
 import io.github.sebastian.dbeaver.sourceviewer.config.ColorSpec;
 import io.github.sebastian.dbeaver.sourceviewer.config.SourceLanguageDefinition;
 import io.github.sebastian.dbeaver.sourceviewer.config.SourceLanguageRegistry;
+import io.github.sebastian.dbeaver.sourceviewer.highlight.SelectionHighlighter;
 import io.github.sebastian.dbeaver.sourceviewer.highlight.SourceCodeHighlighter;
 import io.github.sebastian.dbeaver.sourceviewer.highlight.StyleSpan;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -32,9 +34,12 @@ public class SourceCodeTextView extends Composite {
     private final Combo languageCombo;
     private final StyledText text;
     private final Map<ColorSpec, Color> colors = new HashMap<>();
+    private final Runnable selectionUpdate = this::renderSelectionStyles;
 
     private String source = "";
     private String columnName;
+    private List<StyleSpan> syntaxSpans = List.of();
+    private String lastSelection;
 
     public SourceCodeTextView(Composite parent, boolean editable) {
         super(parent, SWT.NONE);
@@ -54,14 +59,22 @@ public class SourceCodeTextView extends Composite {
         text.setEditable(editable);
         text.setFont(JFaceResources.getTextFont());
         text.addModifyListener(event -> {
-            if (editable) {
-                source = text.getText();
-                renderStyles();
+            source = text.getText();
+            renderStyles();
+        });
+        text.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent event) {
+                scheduleSelectionUpdate();
             }
         });
+        text.addCaretListener(event -> scheduleSelectionUpdate());
 
         refreshDefinitions();
-        addDisposeListener(event -> colors.values().forEach(Color::dispose));
+        addDisposeListener(event -> {
+            getDisplay().timerExec(-1, selectionUpdate);
+            colors.values().forEach(Color::dispose);
+        });
     }
 
     public void setSource(String value, String newColumnName) {
@@ -70,7 +83,6 @@ public class SourceCodeTextView extends Composite {
         text.setRedraw(false);
         try {
             text.setText(source);
-            renderStyles();
         } finally {
             text.setRedraw(true);
         }
@@ -130,17 +142,51 @@ public class SourceCodeTextView extends Composite {
             return;
         }
         SourceLanguageDefinition language = getSelectedLanguage();
-        if (language == null) {
-            text.setStyleRanges(new StyleRange[0]);
+        syntaxSpans = language == null ? List.of() : SourceCodeHighlighter.highlight(source, language);
+        lastSelection = null;
+        getDisplay().timerExec(-1, selectionUpdate);
+        renderSelectionStyles();
+    }
+
+    private void scheduleSelectionUpdate() {
+        // Let SWT finish updating both selection endpoints; coalesce mouse drags
+        // and keyboard repeats without reparsing the source's syntax.
+        getDisplay().timerExec(-1, selectionUpdate);
+        getDisplay().timerExec(80, selectionUpdate);
+    }
+
+    private void renderSelectionStyles() {
+        if (text.isDisposed()) {
             return;
         }
-        List<StyleSpan> spans = SourceCodeHighlighter.highlight(text.getText(), language);
-        StyleRange[] ranges = new StyleRange[spans.size()];
-        for (int index = 0; index < spans.size(); index++) {
-            StyleSpan span = spans.get(index);
-            ranges[index] = new StyleRange(span.start(), span.length(), getColor(span.color()), null);
+        String selection = text.getSelectionText();
+        if (selection.equals(lastSelection)) {
+            return;
         }
+        lastSelection = selection;
+        List<SelectionHighlighter.Match> matches = SelectionHighlighter.findMatches(source, selection);
+        List<SelectionHighlighter.Segment> segments = SelectionHighlighter.overlay(syntaxSpans, matches);
+        Color matchBackground = matches.isEmpty() ? null : getMatchBackground();
+        StyleRange[] ranges = new StyleRange[segments.size()];
+        for (int index = 0; index < segments.size(); index++) {
+            SelectionHighlighter.Segment segment = segments.get(index);
+            ranges[index] = new StyleRange(segment.start(), segment.length(),
+                segment.foreground() == null ? null : getColor(segment.foreground()),
+                segment.matched() ? matchBackground : null);
+        }
+        // SWT paints the active selection over these styles, preserving its
+        // normal appearance while other occurrences receive a subtle background.
         text.setStyleRanges(ranges);
+    }
+
+    private Color getMatchBackground() {
+        RGB background = text.getBackground().getRGB();
+        RGB foreground = text.getForeground().getRGB();
+        return getColor(new ColorSpec(
+            (background.red * 82 + foreground.red * 18) / 100,
+            (background.green * 82 + foreground.green * 18) / 100,
+            (background.blue * 82 + foreground.blue * 18) / 100
+        ));
     }
 
     private Color getColor(ColorSpec color) {

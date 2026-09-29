@@ -13,6 +13,7 @@ if ($ReleaseVersion -notmatch '^\d+\.\d+\.\d+$') {
 }
 
 if (-not $SkipMaven) {
+    & (Join-Path $PSScriptRoot 'Test-UdlParser.ps1')
     & (Join-Path $PSScriptRoot 'Set-DBeaverTarget.ps1') -DBeaverHome $DBeaverHome
     $MavenCandidates = @()
     $MavenCommand = Get-Command mvn.cmd -ErrorAction SilentlyContinue
