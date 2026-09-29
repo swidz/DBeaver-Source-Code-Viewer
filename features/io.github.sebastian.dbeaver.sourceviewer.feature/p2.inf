@@ -1,0 +1,2 @@
+instructions.configure=org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(location:https${#58}//raw.githubusercontent.com/swidz/DBeaver-Source-Code-Viewer/update-site/,type:0,name:DBeaver Source Code Viewer,enabled:true);\
+ org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(location:https${#58}//raw.githubusercontent.com/swidz/DBeaver-Source-Code-Viewer/update-site/,type:1,name:DBeaver Source Code Viewer,enabled:true);

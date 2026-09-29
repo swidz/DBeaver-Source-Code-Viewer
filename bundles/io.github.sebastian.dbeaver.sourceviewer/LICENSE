@@ -1,17 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<feature
-      id="io.github.sebastian.dbeaver.sourceviewer.feature"
-      label="DBeaver Source Code Viewer"
-      version="0.1.7.qualifier"
-      provider-name="Sebastian">
-
-   <description url="https://github.com/swidz/DBeaver-Source-Code-Viewer">
-      Syntax-highlighted source-code result values for DBeaver.
-      Includes C#, C++, SQL, and X++ with configurable Notepad++ UDL definitions.
-   </description>
-
-   <copyright>Copyright (c) 2026 Sebastian</copyright>
-   <license url="https://github.com/swidz/DBeaver-Source-Code-Viewer/blob/main/LICENSE"><![CDATA[
 MIT License
 
 Copyright (c) 2026 Sebastian
@@ -33,16 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-   ]]></license>
-
-   <url>
-      <update label="DBeaver Source Code Viewer" url="https://raw.githubusercontent.com/swidz/DBeaver-Source-Code-Viewer/update-site/"/>
-   </url>
-
-   <plugin
-         id="io.github.sebastian.dbeaver.sourceviewer"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-</feature>
